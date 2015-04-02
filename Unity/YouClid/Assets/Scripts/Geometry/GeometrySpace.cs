@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GeometrySpace : MonoBehaviour {
+public class GeometrySpace : MonoBehaviour 
+{
+	private GameObject elementsContainer_ = null;
 
-	// Use this for initialization
-	void Start () {
+	void Awake()
+	{
+		elementsContainer_ = new GameObject ();
+		elementsContainer_.transform.parent = this.transform;
+		elementsContainer_.name = "Elements";
+	}
+
+	void Start () 
+	{
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	
 	}
 }

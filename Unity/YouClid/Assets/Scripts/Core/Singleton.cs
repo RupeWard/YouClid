@@ -24,7 +24,7 @@
  * 
  */
 
-//#define DEBUG_SINGLETONS
+#define DEBUG_SINGLETONS
 
 using System;
 using UnityEngine;
@@ -75,7 +75,7 @@ public class SingletonSceneLifetime<GameObjectType> : MonoBehaviour
             if (instance.Equals(this))
             {
 #if DEBUG_SINGLETONS
-                Debug.LogError("Destroying scene singleton of type " + typeof(GameObjectType).ToString());
+                Debug.Log("Destroying scene singleton of type " + typeof(GameObjectType).ToString());
 #endif //DEBUG_SINGLETONS
                 SingletonHelper<GameObjectType>.HandleOnDestroy(ref instance, ref blockInstanceFetch);
                 PostOnDestroy();
@@ -136,6 +136,26 @@ public class SingletonSceneLifetime<GameObjectType> : MonoBehaviour
         {
             if (SingletonHelper<GameObjectType>.ShouldAssignInstance(ref instance, ref blockInstanceFetch))
             {
+				GameObjectType[] instances = FindObjectsOfType(typeof(GameObjectType)) as GameObjectType[];
+				if (instances.Length > 1)
+				{
+					Debug.LogError("CAN'T ASSIGN INSTANCE OF "+typeof(GameObjectType)+" because "+instances.Length+" found in scene!");
+				}
+				else if (instances.Length == 0)
+				{
+					Debug.LogWarning ( "No object of type "+typeof(GameObjectType)+" in scene, creating instance");
+					GameObject go = new GameObject();
+					go.AddComponent< GameObjectType >();
+				}
+				else
+				{
+					instance = instances[0];
+					#if DEBUG_SINGLETONS
+					Debug.Log("Found and assigned scene singleton instance of type " + typeof(GameObjectType).ToString());
+					#endif //DEBUG_SINGLETONS
+				}
+
+				/*
 				string instanceName = "The"+typeof(GameObjectType).ToString();
 				GameObject gameObj = GameObject.Find(instanceName) as GameObject;
 
@@ -149,7 +169,7 @@ public class SingletonSceneLifetime<GameObjectType> : MonoBehaviour
                 else
                 {
                     Debug.LogError("Unable to find game object named "+ instanceName+" of type " + typeof(GameObjectType).ToString() + " in current scene");
-                }
+                }*/
             }
 
             return instance;
