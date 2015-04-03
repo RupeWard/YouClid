@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GeometryElementPoint : GeometryElement 
 {
-	static private PrefabLoader< GeometryElementPoint > s_prefabLoader = new PrefabLoader< GeometryElementPoint >( "Prefabs/Geometry/GeometryPoint"); 
+	static private PrefabLoader< GeometryElementPoint > s_prefabLoader 
+		= new PrefabLoader< GeometryElementPoint >( "Prefabs/Geometry/Elements/GeometryPoint"); 
 
 	static public GeometryElementPoint Create( Vector3 position )
 	{
