@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PrefabLoader < T >
 {
+	static public bool DEBUG_PREFABLOADER = true;
+
 	private string prefabPath_;
 	private GameObject prefab_;
 
@@ -33,6 +35,13 @@ public class PrefabLoader < T >
 			if (result == null)
 			{
 				Debug.LogError("PrefabLoader found prefab at '"+prefabPath_+"' had no "+go.name+" component!");
+			}
+			else
+			{
+				if (DEBUG_PREFABLOADER)
+				{
+					Debug.Log("PrefabLoader created "+go.name+" instance of prefab at '"+prefabPath_+"'");
+				}
 			}
 		}
 		return result;

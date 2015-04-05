@@ -12,6 +12,11 @@ public class GeometrySpace : MonoBehaviour
 		elementsContainer_.name = "Elements";
 	}
 
+	public void AddElement( GeometryElement element)
+	{
+		element.gameObject.transform.parent = elementsContainer_.transform; 
+	}
+
 	void Start () 
 	{
 	

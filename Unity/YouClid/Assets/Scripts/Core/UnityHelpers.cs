@@ -7,6 +7,11 @@ static public class UnityHelpers
 		return LayerMask.NameToLayer ( s );
 	}
 
+	public static int GetLayerMask(this string s)
+	{
+		return 1 << LayerMask.NameToLayer ( s );
+	}
+
     public static void Destroy(UnityEngine.Object theObject)
     {
 #if UNITY_EDITOR
